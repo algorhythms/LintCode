@@ -25,7 +25,7 @@ class Solution:
             if num==nums[maj]:
                 cnt += 1
             else:
-                cnt -= 1
+                cnt -= 1  # every time --, discard 2 different numbers
 
             if cnt<0:
                 maj = ind
