@@ -38,6 +38,7 @@ class Solution:
         every leaf in heap is already a heap
 
         strictly O(n) rather than O(nlg n) CLRS 6.3 Building a heap
+        for understanding: http://www.zhihu.com/question/20729324
 
         :param A: Given an integer array
         :return:
@@ -49,6 +50,7 @@ class Solution:
     def heappush(self, A, i):
         """
         heappush: heap push down
+        T(n) = T(2n/3)+O(1)
 
         :param A:
         :param i:
