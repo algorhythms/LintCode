@@ -72,52 +72,36 @@ class Solution:
         return ret
 
 
-    UNVISITED = 0
-    VISITING = 1
-    VISITED = 2
     def topSort(self, graph):
         """
         dfs
         1. pick an unvisited node
-        2. add neighbors and sub-neighbors first
-        3. until all nodes are visited
+        2. add neighbors and sub-neighbors to result first
+        3. then add the node itself to the result
+        4. until all nodes are visited
 
         :param graph: A list of Directed graph node
         :return: graph
         """
-        status = {}
-        for node in graph:
-            status[node] = Solution.UNVISITED
-
+        unvisited = set(graph)
 
         ret = []
-        while True:
-            cur = self.get_unvisited(status, graph)
-            if not cur: break
-            self.dfs(cur, status, ret)
+        while unvisited:
+            cur = unvisited.copy().pop()
+            self.dfs(cur, unvisited, ret)
 
         return ret
 
-    def dfs(self, cur, status, ret):
+    def dfs(self, cur, unvisited, ret):
         """
 
         :param cur: cur must be UNVISITED (pre-check)
-        :param status:
+        :param unvisited:
         :param ret:
         :return:
         """
-        status[cur] = Solution.VISITING
         for nbr in cur.neighbors:
-            if status[nbr]==Solution.VISITING:
-                raise Exception("Cyclic Graph")
-            elif status[nbr]==Solution.UNVISITED:
-                self.dfs(nbr, status, ret)
-        ret.insert(0, cur)  # insert order
-        status[cur] = Solution.VISITED
-
-
-    def get_unvisited(self, status, graph):
-        for node in graph:
-            if status[node]==Solution.UNVISITED:
-                return node
-        return None
+            if nbr in unvisited:
+                self.dfs(nbr, unvisited, ret)
+        ret.insert(0, cur)  # notice the insertion order
+        unvisited.remove(cur)
