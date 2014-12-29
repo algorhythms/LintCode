@@ -17,7 +17,7 @@ class TrieNode(object):
     def __init__(self, char):
         self.char = char
         self.word = None
-        self.children = {}
+        self.children = {}  # map from char to TrieNode
 
     def __repr__(self):
         return repr(self.char)
@@ -42,7 +42,7 @@ class Solution:
     def wordSearchII_TLE(self, board, words):
         """
         Trie+dfs
-        pure Trie
+        pure Trie solution
 
         :param board: a list of lists of 1 length string
         :param words: a list of string
@@ -81,7 +81,7 @@ class Solution:
         """
         Trie+dfs
 
-        prune by words, but degenerate to the solution which does not require trie 
+        prune by words, but degenerate to the solution which does not require trie
 
         :param board: a list of lists of 1 length string
         :param words: a list of string
@@ -98,7 +98,7 @@ class Solution:
                 if not found:
                     for j in xrange(len(board[0])):
                         self.dfs2(board, i, j, trie.root, visited, r)
-                        if len(r)==1:
+                        if len(r)==1:  # prune when found a result
                             ret.append(r.pop())
                             found = True
                             break
@@ -107,6 +107,8 @@ class Solution:
 
     def dfs2(self, board, i, j, parent, visited, ret):
         """
+        prune when found a result
+
         :type parent: TrieNode
         """
         c = board[i][j]
@@ -134,4 +136,4 @@ if __name__=="__main__":
              "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
              "aaaaaaaaaaaaaaaaaaaaaaaaaaaaab"]
     words =  {"baaaaaaaaaaaaa","a","aa","aaaa","aaaax","abaaabbaz"}
-    print Solution().wordSearchII(board, words)
+    assert Solution().wordSearchII(board, words)==['a', 'aa', 'aaaa', 'baaaaaaaaaaaaa']
