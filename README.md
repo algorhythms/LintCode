@@ -1,6 +1,7 @@
 # LintCode
-
 Python in Action.  
+
+##Contents
 Duplicated questions of [LeetCode](https://github.com/zhangdanyangg/LeetCode) are excluded. Only unique questions from [LintCode](https://github.com/zhangdanyangg/LintCode) are included.
 
 ##Online Judges 
