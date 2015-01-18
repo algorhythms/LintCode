@@ -1,4 +1,4 @@
-# LintCode
+# LintCode Python
 Python in Action.  
 
 ## Contents
