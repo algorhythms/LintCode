@@ -41,9 +41,6 @@ class Solution:
 
         return "".join(map(str, lst)).lstrip("0")
 
-
-
-
     def DeleteDigits_error(self, A, k):
         """
         remove keep the n-k largest numbers
