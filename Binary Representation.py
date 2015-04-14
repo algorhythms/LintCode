@@ -15,11 +15,14 @@ __author__ = 'Danyang'
 class Solution:
     def binaryRepresentation(self, n):
         """
+        NOTICE: As of 14 April 2015, LintCode OJ has bug in test case 12 of this question since 0.6418459415435791
+        cannot be represented as binary representation because 0.6418459415435791 becomes
+        0.10100100010100000000001111111111111111111111111111111111111000...
+
+
         difficult part: determine whether the fraction can be represented in binary
 
-        if cannot represent, repeat forever, then cut-off at 32bit as int
-
-        Notice: LintCode OJ has bug in test case 12 of this question
+        if cannot represent, repeat forever, then cut-off at 32bit as in int
         :param n: Given a decimal number that is passed in as a string
         :return: A string
         """
