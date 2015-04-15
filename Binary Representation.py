@@ -21,8 +21,10 @@ class Solution:
 
 
         difficult part: determine whether the fraction can be represented in binary
-
         if cannot represent, repeat forever, then cut-off at 32bit as in int
+
+        One may check whether the last digit of decimal part is 5, but it does not work for 0.12345
+
         :param n: Given a decimal number that is passed in as a string
         :return: A string
         """
@@ -31,14 +33,13 @@ class Solution:
             int_part, dec_part = n.split(".")
             getcontext().prec = len(dec_part)+1
             dec_part = "."+dec_part
+            if not self.is_representable(Decimal(dec_part)):
+                return "ERROR"
         else:
             int_part = n
 
         a = self.natural_num_to_bin(int(int_part))
         b = self.fraction_to_bin(Decimal(dec_part))
-
-        if b=="ERROR":
-            return "ERROR"
 
         if a=="":
             a = "0"
@@ -49,6 +50,12 @@ class Solution:
 
     @staticmethod
     def natural_num_to_bin(n):
+        """
+
+        :type n: int
+        :param n:
+        :return: string representation
+        """
         sb = []  # string buffer
         while n>0:
             sb.append(n&1)
@@ -58,6 +65,12 @@ class Solution:
 
     @staticmethod
     def fraction_to_bin(n):
+        """
+
+        :type n: Decimal
+        :param n:
+        :return: string representation
+        """
         sb = []
         while n>0:
             if len(sb)>32:
@@ -68,6 +81,25 @@ class Solution:
             n -= Decimal(cur)
         return "".join(map(str, sb))
 
+    @staticmethod
+    def is_representable(frac):
+        """
+        to test whether the fraction part is representable in binary
+
+        :type frac: Decimal
+        :param frac:
+        :return:
+        """
+        while True:
+            temp = str(frac).rstrip("0")
+            if temp.endswith("."):
+                return True
+            if not temp.endswith("5"):
+                return False
+            frac *= Decimal(2)
+
 
 if __name__=="__main__":
-    print Solution().binaryRepresentation("0.6418459415435791")
+    assert Solution().binaryRepresentation("0.72")=="ERROR"
+    assert Solution().binaryRepresentation("0.125")=="0.001"
+    assert Solution().binaryRepresentation("0.6418459415435791")=="ERROR"
