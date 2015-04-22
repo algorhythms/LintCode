@@ -34,11 +34,39 @@ class Solution:
         return ret
 
     def to_bin(self, n):
+        """
+        2's complement
+        32-bit
+        :param n:
+        :return:
+        """
+        """
+        :param n:
+        :return:
+        """
+        a = abs(n)
         lst = []
-        while n>0:
-            lst.append(n%2)
-            n /= 2
+        while a>0:
+            lst.append(a%2)
+            a /= 2
+
+        # 2's complement
+        if n>=0:
+            lst.extend([0]*(32-len(lst)))
+        else:
+            pivot = -1
+            for i in xrange(len(lst)):
+                if pivot==-1 and lst[i]==1:
+                    pivot = i
+                    continue
+                if pivot!=-1:
+                    lst[i] ^= 1
+
+            lst.extend([1]*(32-len(lst)))
+
         return "".join(map(str, reversed(lst)))
 
 if __name__=="__main__":
+    assert Solution().bitSwapRequired(1, -1)==31
     assert Solution().bitSwapRequired(31, 14)==2
+
