@@ -6,13 +6,9 @@ Could you please decide the first play will win or lose?
 
 Example
 n = 1, return true.
-
 n = 2, return true.
-
 n = 3, return false.
-
 n = 4, return true.
-
 n = 5, return true.
 
 Challenge
@@ -22,8 +18,6 @@ __author__ = 'Daniel'
 
 
 class Solution:
-    # @param n:
-    # @return:
     def firstWillWin(self, n):
         """
         Starting from the easiest cases.
