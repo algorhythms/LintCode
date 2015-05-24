@@ -98,13 +98,36 @@ class Solution:
         :return: a boolean which equals to True if the first player will win
         """
         n = len(values)
-        if n == 1:
+        if n%2 == 0 and self.firstWillWinEven(values):
             return True
 
-        # TODO 
+        return self.firstWillWin_TLE(values)
+
+    def firstWillWinEven(self, values):
+        """
+        odd_s: sum of values at odd position
+        even_s: sum of values at even position
+
+        if odd_s == even_s, the first mover cannot win if the other player mimics the first player
+
+        if odd_s > even_s, the first mover chooses the odd position values, and FORCE the other player choose the even
+        position values. The strategy and outcome are similar when even_s > odd_s.
+          
+        :param values:
+        :return:
+        """
+        odd_s = 0
+        even_s = 0
+        for i in xrange(len(values)):
+            if i%2 == 0:
+                even_s += values[i]
+            else:
+                odd_s += values[i]
+
+        return odd_s != even_s
 
 
 if __name__ == "__main__":
-    print Solution().firstWillWin([3, 2, 2])
-    print Solution().firstWillWin([1, 20, 4])
-    print Solution().firstWillWin([1, 2, 3, 4, 5, 6, 7, 8, 13, 11, 10, 9])
+    assert Solution().firstWillWin([3, 2, 2]) == True
+    assert Solution().firstWillWin([1, 20, 4]) == False
+    assert Solution().firstWillWin([1, 2, 3, 4, 5, 6, 7, 8, 13, 11, 10, 9]) == True
