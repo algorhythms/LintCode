@@ -43,7 +43,7 @@ class Heap(object):
         return self._pos[self._A[self._h[ind]]]
 
     def _swap_heap_node(self, i, j):
-        if self._A[self._h[i]] == self._A[self._h[j]]:
+        if self._cmp_by_pos(i, j) == 0:
             return
 
         self._pos2pos_set(i).remove(i)
@@ -52,17 +52,30 @@ class Heap(object):
         self._pos2pos_set(j).add(i)
         self._h[i], self._h[j] = self._h[j], self._h[i]
 
+    def _pi(self, pos):
+        """
+        get the parrent
+        left = 2*pi + 1
+        right = 2*pi + 2
+        :param pos:
+        :return:
+        """
+        if pos%2 == 0:
+            return max(0, pos/2-1)
+        else:
+            return pos/2
+
     def push(self, i):
         pos = len(self._h)
         self._h.append(i)
         self._pos[self._A[i]].add(pos)
 
-        par = pos/2
-        while par != pos and self._A[i] < self._A[self._h[par]]:
-            self._swap_heap_node(par, pos)
+        pi = self._pi(pos)
+        while pi != pos and self._cmp_by_pos(pos, pi) < 0:
+            self._swap_heap_node(pi, pos)
 
-            pos = par
-            par = pos/2
+            pos = pi
+            pi = self._pi(pos)
 
     def _val2pos(self, val):
         return next(iter(self._pos[val]))
@@ -74,22 +87,12 @@ class Heap(object):
         return self._pos2val(i) - self._pos2val(j)
 
     def remove(self, i):
-        val = self._A[i]
-        pos = self._val2pos(val)
-        last = self._h[len(self._h)-1]
-        last_pos = len(self._h)-1
-        self._pos2pos_set(last_pos).remove(last_pos)
-        self._pos2pos_set(last_pos).add(pos)
-
-        self._h.pop()
-
-        if last_pos == pos:
-            return
-
-        self._pos[self._A[i]].remove(pos)
-        self._h[pos] = last
-
-        self._heappush(pos)
+        try:
+            pos = self._val2pos(self._A[i])
+            self.pop(pos)
+        except StopIteration:
+            # TODO
+            pass
 
     def _heappush(self, pos):
         """
@@ -116,15 +119,17 @@ class Heap(object):
     def peek(self):
         return self._h[0]
 
-    def pop(self):
+    def pop(self, pos=0):
         # swap head and last
         last_pos = len(self._h)-1
-        self._swap_heap_node(0, last_pos)
+        self._swap_heap_node(pos, last_pos)
 
         # pop out head
         self._pos2pos_set(last_pos).remove(last_pos)
         head = self._h.pop()
-        self._heappush(0)
+
+        # rebalance
+        self._heappush(pos)
         return head
 
     def __len__(self):
@@ -208,11 +213,5 @@ class Solution:
 
 
 if __name__ == "__main__":
-    print Solution().medianSlidingWindow(
-        [603, 1882, 1565, 307, 1458, 578, 253, 515, 1938, 853, 1295, 238, 1184, 1109, 1048, 1680, 1507, 310, 884, 854,
-         1109, 278, 648, 1286, 1428, 200, 1534, 855, 1021, 999, 258, 129, 1877, 690, 988, 871, 1253, 1372, 855, 1481,
-         1965, 525, 749, 1909, 522, 1579, 1198, 724, 1495, 1496, 783, 1714, 1214, 1957, 1798, 1423, 932, 1559, 1249,
-         978, 634, 1648, 108, 812, 1163, 1712, 1671, 735, 719, 1272, 720, 732, 507, 115, 1644, 413, 1111, 552, 144, 353,
-         1515, 614, 1050, 39, 40, 354, 1042, 599, 1548, 1946, 1671, 1339, 1250, 907, 1305, 1164, 898, 36, 1001, 446], 84)
     assert Solution().medianSlidingWindow([1, 1, 1, 1], 3) == [1, 1]
     assert Solution().medianSlidingWindow([1, 2, 7, 8, 5], 3) == [2, 7, 7]
