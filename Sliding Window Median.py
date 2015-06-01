@@ -37,7 +37,7 @@ class Heap(object):
         """
         self._A = A  # the original array
         self._h = []  # store the index
-        self._pos = defaultdict(set)  # elt -> set(pos)
+        self._pos = defaultdict(set)  # val -> set(pos)
 
     def _pos2pos_set(self, ind):
         return self._pos[self._A[self._h[ind]]]
@@ -54,7 +54,7 @@ class Heap(object):
 
     def _pi(self, pos):
         """
-        get the parrent
+        get the parent
         left = 2*pi + 1
         right = 2*pi + 2
         :param pos:
@@ -205,8 +205,6 @@ class Solution:
         for i in xrange(k, len(nums)):
             dh.remove(i-k)
             dh.add(i)
-            if dh.median() == 999:
-                pass
             ret.append(dh.median())
 
         return ret
