@@ -39,6 +39,8 @@ class Solution:
 
         Do BFS with heap (similar to Dijkstra's algorithm)
 
+        Python TLE
+
         :param heights: a matrix of integers
         :return: an integer
         """
@@ -64,13 +66,13 @@ class Solution:
                 next_i = cur.i+dir[0]
                 next_j = cur.j+dir[1]
                 if 0 <= next_i < m and 0 <= next_j < n:
-                    next = Cell(next_i, next_j, heights[next_i][next_j])
-                    if not visited[next.i][next_j]:
-                        visited[next.i][next.j] = True  # additional, to avoid TLE
-                        if next.h < cur.h:  # fill
-                            self.trapped += cur.h-next.h
-                            next.h = cur.h
-                        heapq.heappush(self.h, next)
+                    nex = Cell(next_i, next_j, heights[next_i][next_j])
+                    if not visited[nex.i][nex.j]:
+                        visited[nex.i][nex.j] = True  # additional, to avoid TLE
+                        if nex.h < cur.h:  # fill
+                            self.trapped += cur.h-nex.h
+                            nex.h = cur.h
+                        heapq.heappush(self.h, nex)
 
         return self.trapped
 
