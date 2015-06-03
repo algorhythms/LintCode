@@ -6,7 +6,6 @@ Example
 Give [-3, 1, 3, -3, 4], return [1,4].
 """
 __author__ = 'Daniel'
-import sys
 
 
 class Solution:
@@ -17,22 +16,22 @@ class Solution:
         :param A: an integer array
         :return: A list of integers includes the index of the first number and the index of the last number
         """
-        max_a = max(A)
-        max_sum = -sys.maxint-1
-        m_s = -1
-        m_e = -1
+        if len(A) < 1:
+            return [-1, -1]
+
+        m_s, m_e = 0, 0  # inclusive index
+        max_sum = A[0]
 
         cur = 0  # current sum
         s = 0
-        for i, v in enumerate(A):
+        for e, v in enumerate(A):
             cur += v
-            if max_sum <= cur:
-                m_s = s
-                m_e = i
+            if max_sum < cur:
+                m_s, m_e = s, e
                 max_sum = cur
 
-            if max_a > 0 > cur or 0 >= max_a > cur:  # 2nd condition for all negative arrays
-                s = i+1
+            if cur < 0:
+                s = e+1
                 cur = 0
 
         return [m_s, m_e]
@@ -41,4 +40,4 @@ class Solution:
 if __name__ == "__main__":
     assert Solution().continuousSubarraySum(
         [-101, -33, -44, -55, -67, -78, -101, -33, -44, -55, -67, -78, -100, -200, -1000, -22, -100, -200, -1000, -22]
-    ) == [19, 19]
+    ) == [15, 15]
