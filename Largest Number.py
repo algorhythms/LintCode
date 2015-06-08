@@ -8,40 +8,45 @@ __author__ = 'Daniel'
 
 
 class Solution:
-    def largestNumber(self, num):
+    def largestNumber(self, nums):
         """
-        Compare digit by digit
+        Start off by enumerate simple examples
 
-        :param num: A list of non negative integers
-        :return: A string
+        Compare digit by digit
+        The comparator is the core.
+
+        :type nums: list[int]
+        :rtype: str
         """
-        num.sort(cmp=self.cmp, reverse=True)
-        ret = "".join(map(str, num))
-        ret = ret.lstrip("0")
-        if not ret:
-            return "0"
-        return ret
+        nums = map(str, nums)
+        nums.sort(cmp=self.cmp, reverse=True)
+        nums = "".join(nums)
+        nums = nums.lstrip("0")
+        if not nums:
+            nums = "0"
+        return nums
 
     def cmp(self, a, b):
-        a = str(a)
-        b = str(b)
+        """
+        :type a: str
+        :type b: str
+        :rtype: int
+        """
+        order = 1
+        if len(a) > len(b):
+            order = -1
+            a, b = b, a
 
-        pre = int(a[0])
-        while len(a)>0 and len(b)>0:
-            if a[0]!=b[0]:
-                return int(a[0])-int(b[0])
+        for i in xrange(len(a)):
+            if int(a[i]) != int(b[i]):
+                return order*(int(a[i])-int(b[i]))
 
-            pre = int(a[0])
-            a = a[1:]
-            b = b[1:]
+        if len(a) == len(b):
+            return 0
 
-        if len(a)>0:
-            return int(a[0])-pre
-        if len(b)>0:
-            return -(int(b[0])-pre)
+        return order*self.cmp(a, b[len(a):])
 
-        return 0
 
-if __name__=="__main__":
-    assert Solution().largestNumber([0, 0])=="0"
-    assert Solution().largestNumber([1, 20, 23, 4, 8])=="8423201"
+if __name__ == "__main__":
+    assert Solution().largestNumber([0, 0]) == "0"
+    assert Solution().largestNumber([1, 20, 23, 4, 8]) == "8423201"
