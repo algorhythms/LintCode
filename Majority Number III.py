@@ -12,6 +12,8 @@ Challenge
 O(n) time and O(k) extra space
 """
 __author__ = 'Danyang'
+
+
 class Solution:
     def majorityNumber_error(self, nums, k):
         """
@@ -27,18 +29,18 @@ class Solution:
         for num in nums:
             if num not in n:
                 for i in xrange(k):
-                    if cnt[i]==0:
+                    if cnt[i] == 0:
                         n[i] = num
                         cnt[i] += 1
                         break  # should have gone to next iteration, but go to the following else
 
             if num not in n:  # every time --, discard k different numbers
                 for i in xrange(k):
-                    assert cnt[i]>0
+                    assert cnt[i] > 0
                     cnt[i] -= 1
 
                 for i in xrange(k):
-                    if cnt[i]==0:
+                    if cnt[i] == 0:
                         n[i] = num
                         cnt[i] += 1
                         break
@@ -47,11 +49,10 @@ class Solution:
                 cnt[i] += 1
 
         for i in xrange(k):
-            if len(filter(lambda x: x==n[i], nums))>len(nums)/k:
+            if len(filter(lambda x: x == n[i], nums)) > len(nums)/k:
                 return n[i]
 
         raise Exception
-
 
 
     def majorityNumber(self, nums, k):
@@ -68,22 +69,22 @@ class Solution:
         for num in nums:
             if num not in n:
                 i = 0
-                while i<k:
-                    if cnt[i]==0:
+                while i < k:
+                    if cnt[i] == 0:
                         n[i] = num
                         cnt[i] += 1
                         break
                     i += 1
-                if i<k:
+                if i < k:
                     continue
 
             if num not in n:
                 for i in xrange(k):
-                    assert cnt[i]>0
+                    assert cnt[i] > 0
                     cnt[i] -= 1
 
                 for i in xrange(k):
-                    if cnt[i]==0:
+                    if cnt[i] == 0:
                         n[i] = num
                         cnt[i] += 1
                         break
@@ -92,12 +93,13 @@ class Solution:
                 cnt[i] += 1
 
         for i in xrange(k):
-            if len(filter(lambda x: x==n[i], nums))>len(nums)/k:
+            if len(filter(lambda x: x == n[i], nums)) > len(nums)/k:
                 return n[i]
 
         raise Exception
 
-if __name__=="__main__":
+
+if __name__ == "__main__":
     assert Solution().majorityNumber(
         [32, 125, 176, 234, 170, 147, 151, 243, 67, 62, 20, 149, 191, 129, 131, 107, 126, 50, 194, 63, 191, 191, 13,
          139, 191, 164, 239, 119, 234, 79, 51, 160, 194, 140, 191, 165, 80, 191, 26, 26, 191, 26, 16, 252, 196, 12, 191,
@@ -109,4 +111,4 @@ if __name__=="__main__":
          163, 205, 134, 165, 40, 11, 191, 133, 183, 164, 138, 75, 191, 22, 232, 248, 54, 136, 106, 109, 229, 242, 121,
          210, 218, 28, 72, 252, 90, 177, 184, 60, 229, 81, 98, 36, 48, 21, 230, 120, 19, 202, 76, 196, 236, 44, 162, 94,
          89, 151, 72, 191, 242, 187, 218, 228, 62, 169, 62, 187, 162, 232, 24, 236, 164, 28, 63, 117, 212, 191, 206, 15,
-         209, 85, 37, 177, 23, 250, 30, 126, 246, 48, 115, 96, 198, 106, 198, 139, 19, 118, 153], 9)==191
+         209, 85, 37, 177, 23, 250, 30, 126, 246, 48, 115, 96, 198, 106, 198, 139, 19, 118, 153], 9) == 191

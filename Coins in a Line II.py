@@ -22,6 +22,12 @@ class Solution:
         Starting from back
         Memory Limit Exceeded
 
+        let F_i^p represents maximum values he can get at index i, for the person p.
+
+        F_i^0 = max(A_i + sum - F_{i+1}^1,  # if choose one coin
+                    A_i + A_{i+1} + sum - F_{i+2}^1  # if choose two coin
+                )
+
         :param values: a list of integers
         :return: a boolean which equals to True if the first player will win
         """

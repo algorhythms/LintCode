@@ -2,9 +2,13 @@
 Compare two strings A and B, determine whether A contains all of the characters in B.
 """
 __author__ = 'Danyang'
+
+
 class Solution:
     def compareStrings(self, A, B):
         """
+        Straightforward
+
         :param A : A string includes Upper Case letters
         :param B : A string includes Upper Case letters
         :return :  if string A contains all of the characters in B return True else return False

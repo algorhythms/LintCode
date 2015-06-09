@@ -24,6 +24,8 @@ hash table: [null, 9, null, null, null, 21, 14, null]
 Given the original hash table, return the new hash table after rehashing .
 """
 __author__ = 'Danyang'
+
+
 class ListNode(object):
     def __init__(self, val, next=None):
         self.val = val
@@ -31,6 +33,7 @@ class ListNode(object):
 
     def __repr__(self):
         return repr(self.val)
+
 
 class Solution:
     def rehashing(self, hashTable):
@@ -61,7 +64,8 @@ class Solution:
     def __hashcode(self, key, capacity):
         return key%capacity
 
-if __name__=="__main__":
+
+if __name__ == "__main__":
     hashTable = [None for _ in xrange(3)]
     n0 = ListNode(29)
     n1 = ListNode(5)

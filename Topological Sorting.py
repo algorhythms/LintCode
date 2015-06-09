@@ -103,5 +103,5 @@ class Solution:
         for nbr in cur.neighbors:
             if nbr in unvisited:
                 self.dfs(nbr, unvisited, ret)
-        ret.insert(0, cur)  # notice the insertion order
+        ret.push(0, cur)  # notice the insertion order
         unvisited.remove(cur)

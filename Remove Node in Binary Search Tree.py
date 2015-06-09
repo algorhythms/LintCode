@@ -4,10 +4,13 @@ such a node with given value in the binary search tree, do nothing. You should k
 after removal.
 """
 __author__ = 'Danyang'
+
+
 class TreeNode:
     def __init__(self, val):
         self.val = val
         self.left, self.right = None, None
+
 
 class Solution:
     def removeNode(self, root, value):
@@ -39,14 +42,14 @@ class Solution:
         if not root:
             return
 
-        if root.val>value:
+        if root.val > value:
             self.__removeNode(root.left, root, value)
-        elif root.val<value:
+        elif root.val < value:
             self.__removeNode(root.right, root, value)
         else:
             if not root.left and not root.right:  # no child
                 if parent:
-                    if parent.left==root:
+                    if parent.left == root:
                         parent.left = None
                     else:
                         parent.right = None
@@ -55,7 +58,7 @@ class Solution:
             elif root.left and not root.right or root.right and not root.left:  # single child
                 if root.left:
                     if parent:
-                        if parent.left==root:
+                        if parent.left == root:
                             parent.left = root.left
                         else:
                             parent.right = root.left
@@ -63,7 +66,7 @@ class Solution:
                         root = root.left
                 else:
                     if parent:
-                        if parent.left==root:
+                        if parent.left == root:
                             parent.left = root.right
                         else:
                             parent.right = root.right
@@ -76,6 +79,5 @@ class Solution:
                 root.val = cur.val
                 # go down again
                 self.__removeNode(root.left, root, cur.val)
-
 
         return root

@@ -11,6 +11,8 @@ Example
 Given [1,4,2,3] and target=1, one of the solutions is [2,3,2,3], the adjustment cost is 2 and it's minimal. Return 2.
 """
 __author__ = 'Danyang'
+
+
 class Solution:
     def MinAdjustmentCost(self, A, target):
         """
@@ -42,6 +44,6 @@ class Solution:
         return mini
 
 
-if __name__=="__main__":
-    assert Solution().MinAdjustmentCost([12,3,7,4,5,13,2,8,4,7,6,5,7], 2)==19
+if __name__ == "__main__":
+    assert Solution().MinAdjustmentCost([12, 3, 7, 4, 5, 13, 2, 8, 4, 7, 6, 5, 7], 2) == 19
 

@@ -9,6 +9,8 @@ Note
 The subarray should contain at least one number
 """
 __author__ = 'Danyang'
+
+
 class Solution:
     def maxKSubArrays(self, nums, k):
         """
@@ -36,7 +38,7 @@ class Solution:
 
         for i in xrange(1, n+1):
             for st in xrange(1, k+1):
-                if st==1:  # dummies nodes does not works well with negative numbers
+                if st == 1:  # dummies nodes does not works well with negative numbers
                     f[i][st] = max([s[i]-s[j] for j in xrange(i)])
                 else:
                     f[i][st] = max([g[j][st-1]+s[i]-s[j] for j in xrange(i)])
@@ -49,6 +51,6 @@ class Solution:
         return maxa
 
 
-if __name__=="__main__":
-    print Solution().maxKSubArrays([1,2,3], 1)
-    print Solution().maxKSubArrays([-1,-2,-3,-100,-1,-50], 2)
+if __name__ == "__main__":
+    print Solution().maxKSubArrays([1, 2, 3], 1)
+    print Solution().maxKSubArrays([-1, -2, -3, -100, -1, -50], 2)

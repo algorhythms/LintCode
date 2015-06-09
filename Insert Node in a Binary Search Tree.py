@@ -31,14 +31,18 @@ Challenge
 Do it without recursion
 """
 __author__ = 'Danyang'
+
+
 class TreeNode:
     def __init__(self, val):
         self.val = val
         self.left, self.right = None, None
 
+
 class Solution:
     def insertNode(self, root, node):
         """
+        Insertion without balance should be straightforward
 
         :param root: The root of the binary search tree.
         :param node: insert this node into the binary search tree.
@@ -50,9 +54,9 @@ class Solution:
             return root
 
         while cur:
-            if cur.val==node.val:
+            if cur.val == node.val:
                 return root
-            elif cur.val>node.val:
+            elif cur.val > node.val:
                 if cur.left:
                     cur = cur.left
                 else:

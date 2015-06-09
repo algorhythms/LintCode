@@ -54,11 +54,12 @@ class PriorityQueue(object):
     def remove(self, t):
         pos = self.bisect(t)
         if self.lst[pos] != t:
-            raise ValueError("%s not found in the queue" % str(t))
+            raise ValueError("%s not found in the queue"%str(t))
         del self.lst[pos]
 
     def __getitem__(self, item):
         return self.lst[item]
+
 
 import heapq
 from collections import defaultdict
@@ -95,7 +96,7 @@ class Heap(object):
         :return:
         """
         if self.existing[t] < 1:
-            raise ValueError("%s does not exist in the heap" % str(t))
+            raise ValueError("%s does not exist in the heap"%str(t))
 
         self.existing[t] -= 1
         self.len -= 1
@@ -104,6 +105,10 @@ class Heap(object):
         return self.len
 
     def peek(self):
+        a = self.h[0]
+        if self.existing[a] > 0:
+            return a
+
         a = self.pop()
         self.push(a)
         return a
@@ -167,7 +172,7 @@ class Solution:
         :param k: size of window
         :return: The median of element inside the window at each moving.
         """
-        if len(nums)<1:
+        if len(nums) < 1:
             return []
 
         pq = PriorityQueue()
@@ -187,7 +192,7 @@ class Solution:
 
         return ret
 
-    def medianSlidingWindow_TLE2(self, nums, k):
+    def medianSlidingWindow(self, nums, k):
         """
         Use heap
 
@@ -208,3 +213,7 @@ class Solution:
             ret.append(dh.median())
 
         return ret
+
+
+if __name__ == "__main__":
+    assert Solution().medianSlidingWindow([1, 2, 7, 8, 5], 3) == [2, 7, 7]

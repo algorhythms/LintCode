@@ -47,5 +47,6 @@ class Solution:
 
         return l-1
 
+
 if __name__=="__main__":
     print Solution().smallestDifference([3, 4, 6, 7], [2, 3, 8, 9])

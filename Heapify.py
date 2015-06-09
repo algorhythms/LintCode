@@ -9,35 +9,20 @@ Challenge
 O(n) time complexity
 """
 __author__ = 'Danyang'
+
+
 class Solution:
-    def heapify_error(self, A, i=0):
-        """
-
-        :param A: Given an integer array
-        :return:
-        """
-        n = len(A)
-        if i>=n:
-            return
-
-        l = 2*i+1
-        r = 2*i+2
-        mini = i
-        if l<n and A[l]<A[mini]:
-            mini = l
-        if r<n and A[r]<A[mini]:
-            mini = r
-        A[i], A[mini] = A[mini], A[i]
-        self.heapify_error(A, l)
-        self.heapify_error(A, r)
-
     def heapify(self, A):
         """
         CLRS
 
-        every leaf in heap is already a heap
+        Min-heap generally is more common
 
-        strictly O(n) rather than O(nlg n) CLRS 6.3 Building a heap
+        Heapify got multiple heappush
+        Bottom up construction
+        * Every leaf in heap is already a heap
+
+        Strictly O(n) rather than O(nlg n) CLRS 6.3 Building a heap
         for understanding: http://www.zhihu.com/question/20729324
 
         :param A: Given an integer array
@@ -50,30 +35,55 @@ class Solution:
     def heappush(self, A, i):
         """
         heappush: heap push down
+
+        Swap to the target position and push down
+
         T(n) = T(2n/3)+O(1)
 
-        :param A:
-        :param i:
+        :param A: the array
+        :param i: the index
         :return:
         """
         n = len(A)
-        if i>=n:
+        if i >= n:
             return
 
         l = 2*i+1
         r = 2*i+2
         mini = i
-        if l<n and A[l]<A[mini]:
+        if l < n and A[l] < A[mini]:
             mini = l
-        if r<n and A[r]<A[mini]:
+        if r < n and A[r] < A[mini]:
             mini = r
-        if i!=mini:
+        if i != mini:
             A[i], A[mini] = A[mini], A[i]
-            self.heappush(A, mini)
+            swapped = mini
+            self.heappush(A, swapped)
+
+    def heapify_error(self, A, i=0):
+        """
+        Erroneous solution
+
+        :param A: Given an integer array
+        :return:
+        """
+        n = len(A)
+        if i >= n:
+            return
+
+        l = 2*i+1
+        r = 2*i+2
+        mini = i
+        if l < n and A[l] < A[mini]:
+            mini = l
+        if r < n and A[r] < A[mini]:
+            mini = r
+        A[i], A[mini] = A[mini], A[i]
+        self.heapify_error(A, l)
+        self.heapify_error(A, r)
 
 
-
-if __name__=="__main__":
+if __name__ == "__main__":
     A = [45, 39, 32, 11]
     Solution().heapify(A)
-    assert A==[11, 39, 32, 45]
+    assert A == [11, 39, 32, 45]

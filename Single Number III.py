@@ -8,6 +8,8 @@ Challenge
 O(n) time, O(1) extra space.
 """
 __author__ = 'Danyang'
+
+
 class Solution:
     def singleNumberIII(self, A):
         """

@@ -5,6 +5,8 @@ possible. A good hash function can avoid collision as less as possible. A widely
 a magic number 33
 """
 __author__ = 'Danyang'
+
+
 class Solution:
     def hashCode(self, key, HASH_SIZE):
         """
@@ -19,6 +21,7 @@ class Solution:
             w = (w*33)%HASH_SIZE
         return ret
 
-if __name__=="__main__":
-    assert Solution().hashCode("abcd", 100)==78
+
+if __name__ == "__main__":
+    assert Solution().hashCode("abcd", 100) == 78
 

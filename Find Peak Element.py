@@ -21,31 +21,35 @@ Challenge
 Time complexity O(logN)
 """
 __author__ = 'Danyang'
+
+
 class Solution:
     def findPeak(self, A):
         """
         Binary search
         Microsoft Interview, Oct 2014
 
-        Notice: A[0] and A[-1] are dummies.
+        To reduce the complexity of dealing the edge cases:
+        * add two anti-peak dummies on the both ends
 
-        :param A: An integers list.
+        :param A: An integers list. A[0] and A[-1] are dummies.
         :return: return any of peek positions.
         """
         n = len(A)
         l = 0
         h = n
-        while l<h:
+        while l < h:
             m = (l+h)/2
-            if A[m-1]<A[m]>A[m+1]:
+            if A[m-1] < A[m] > A[m+1]:
                 return m
-            elif A[m+1]>A[m]:
+            elif A[m+1] > A[m]:
                 l = m+1
             else:
                 h = m
 
         raise Exception  # will not raise if there are DUMMIES at the both ends.
 
-if __name__=="__main__":
+
+if __name__ == "__main__":
     assert Solution().findPeak([1, 2, 1, 3, 4, 5, 7, 6]) in (1, 6)
 

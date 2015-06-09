@@ -7,6 +7,8 @@ complexity.
 If the target number does not exist in the array, return -1.
 """
 __author__ = 'Danyang'
+
+
 class Solution:
     def binarySearch(self, nums, target):
         """
@@ -18,12 +20,12 @@ class Solution:
         """
         l = 0
         h = len(nums)
-        while l<h:
+        while l < h:
             mid = (l+h)/2
-            if nums[mid]==target:
-                while mid>=0 and nums[mid-1]==nums[mid]: mid -= 1
+            if nums[mid] == target:
+                while mid >= 0 and nums[mid-1] == nums[mid]: mid -= 1
                 return mid
-            elif nums[mid]<target:
+            elif nums[mid] < target:
                 l = mid+1
             else:
                 h = mid

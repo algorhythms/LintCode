@@ -9,6 +9,8 @@ Challenge
 O(n) time and O(1) space
 """
 __author__ = 'Danyang'
+
+
 class Solution:
     def majorityNumber(self, nums):
         """
@@ -22,20 +24,21 @@ class Solution:
         cnt = 0
         maj = 0
         for ind, num in enumerate(nums):
-            if num==nums[maj]:
+            if num == nums[maj]:
                 cnt += 1
             else:
                 cnt -= 1  # every time --, discard 2 different numbers
 
-            if cnt<0:
+            if cnt < 0:
                 maj = ind
                 cnt = 1
 
         # assured that the majority exists, otherwise need to double check
         return nums[maj]
 
-if __name__=="__main__":
-    assert Solution().majorityNumber([1, 1, 1, 2, 2, 2, 2, 1, 1])==1
+
+if __name__ == "__main__":
+    assert Solution().majorityNumber([1, 1, 1, 2, 2, 2, 2, 1, 1]) == 1
 
 
 

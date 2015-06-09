@@ -14,6 +14,8 @@ and dictionary:
 return {"dog", "dad", "can", "again"}
 """
 __author__ = 'Danyang'
+
+
 class TrieNode(object):
     def __init__(self, char):
         self.char = char
@@ -22,6 +24,7 @@ class TrieNode(object):
 
     def __repr__(self):
         return repr(self.char)
+
 
 class Trie(object):
     def __init__(self):
@@ -74,7 +77,7 @@ class Solution:
             for direction in Solution.directions:
                 row = i+direction[0]
                 col = j+direction[1]
-                if 0<=row<len(board) and 0<=col<len(board[0]) and (row, col) not in visited:
+                if 0 <= row < len(board) and 0 <= col < len(board[0]) and (row, col) not in visited:
                     self.dfs(board, row, col, cur, visited, ret)
         visited.remove((i, j))
 
@@ -99,7 +102,7 @@ class Solution:
                 if not found:
                     for j in xrange(len(board[0])):
                         self.dfs2(board, i, j, trie.root, visited, r)
-                        if len(r)==1:  # prune when found a result
+                        if len(r) == 1:  # prune when found a result
                             ret.append(r.pop())
                             found = True
                             break
@@ -121,12 +124,12 @@ class Solution:
             for direction in Solution.directions:
                 row = i+direction[0]
                 col = j+direction[1]
-                if 0<=row<len(board) and 0<=col<len(board[0]) and (row, col) not in visited and not ret:
+                if 0 <= row < len(board) and 0 <= col < len(board[0]) and (row, col) not in visited and not ret:
                     self.dfs2(board, row, col, cur, visited, ret)
         visited.remove((i, j))
 
 
-if __name__=="__main__":
+if __name__ == "__main__":
     board = ["aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
              "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
              "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
@@ -136,5 +139,5 @@ if __name__=="__main__":
              "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
              "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
              "aaaaaaaaaaaaaaaaaaaaaaaaaaaaab"]
-    words =  {"baaaaaaaaaaaaa","a","aa","aaaa","aaaax","abaaabbaz"}
-    assert Solution().wordSearchII(board, words)==['a', 'aa', 'aaaa', 'baaaaaaaaaaaaa']
+    words = {"baaaaaaaaaaaaa", "a", "aa", "aaaa", "aaaax", "abaaabbaz"}
+    assert Solution().wordSearchII(board, words) == ['a', 'aa', 'aaaa', 'baaaaaaaaaaaaa']

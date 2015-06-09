@@ -24,11 +24,16 @@ __author__ = 'Daniel'
 class Solution:
     def firstWillWin_MLE(self, values):
         """
+        DP with Game theory
+
+        Let F_{i, j}^{p} represents the max value he can get in sub-array A[i..j] for person p.
+
         DP formula:
-        F_{i, j}^{1} = max(A_i + sum - F_{i+1, j}^{2},
-                           A_j + sum - F_{i, j-1}^{2}
+        F_{i, j}^{0} = max(A_i + sum - F_{i+1, j}^{1},
+                           A_j + sum - F_{i, j-1}^{1}
                            )
 
+        Sometimes assuming the opponent will carry out the best strategy eliminate stochastic process
         Memory Limit Exceeded
         :param values: a list of integers
         :return: a boolean which equals to True if the first player will win
@@ -56,9 +61,12 @@ class Solution:
 
         return F[0][0][n-1]>min(F[1][0][n-2], F[1][1][n-1])
 
-    def firstWillWin_TLE(self, values):
+    def firstWillWinNormalCase(self, values):
         """
         optimize data structure
+
+        General solution to this question, but it can be optimized further by using tricks when the number of coins is
+        even number.
 
         Time Limit Exceeded
         :param values: a list of integers
@@ -101,7 +109,7 @@ class Solution:
         if n%2 == 0 and self.firstWillWinEven(values):
             return True
 
-        return self.firstWillWin_TLE(values)
+        return self.firstWillWinNormalCase(values)
 
     def firstWillWinEven(self, values):
         """
@@ -128,6 +136,6 @@ class Solution:
 
 
 if __name__ == "__main__":
-    assert Solution().firstWillWin([3, 2, 2]) == True
-    assert Solution().firstWillWin([1, 20, 4]) == False
-    assert Solution().firstWillWin([1, 2, 3, 4, 5, 6, 7, 8, 13, 11, 10, 9]) == True
+    assert Solution().firstWillWin([3, 2, 2]) is True
+    assert Solution().firstWillWin([1, 20, 4]) is False
+    assert Solution().firstWillWin([1, 2, 3, 4, 5, 6, 7, 8, 13, 11, 10, 9]) is True

@@ -41,7 +41,7 @@ class Solution:
         """
         T(m, n) = T(m, n/2) + O(m) = T(m/2, n/2) + O(m) + O(n/2) = ... = O(m+n)
 
-        Reduce dimension: Project 2D to 1D by representing the column vector using the representative item
+        Dimension reduction: Project 2D to 1D by representing the column vector using the representative item
 
         :param A: An list of list integer
         :return: The index of position is a list of integer, for example [2,2]

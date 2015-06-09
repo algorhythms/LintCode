@@ -41,9 +41,9 @@ class Solution:
         a = self.natural_num_to_bin(int(int_part))
         b = self.fraction_to_bin(Decimal(dec_part))
 
-        if a=="":
+        if a == "":
             a = "0"
-        if b=="":
+        if b == "":
             return a
         else:
             return a+"."+b
@@ -57,7 +57,7 @@ class Solution:
         :return: string representation
         """
         sb = []  # string buffer
-        while n>0:
+        while n > 0:
             sb.append(n&1)
             n >>= 1
 
@@ -66,14 +66,14 @@ class Solution:
     @staticmethod
     def fraction_to_bin(n):
         """
-
+        To convert fractional part of binary representation: x2 can take the whole part.
         :type n: Decimal
         :param n:
         :return: string representation
         """
         sb = []
-        while n>0:
-            if len(sb)>32:
+        while n > 0:
+            if len(sb) > 32:
                 return "ERROR"
             n *= Decimal(2)
             cur = int(n)
@@ -99,7 +99,7 @@ class Solution:
             frac *= Decimal(2)
 
 
-if __name__=="__main__":
-    assert Solution().binaryRepresentation("0.72")=="ERROR"
-    assert Solution().binaryRepresentation("0.125")=="0.001"
-    assert Solution().binaryRepresentation("0.6418459415435791")=="ERROR"
+if __name__ == "__main__":
+    assert Solution().binaryRepresentation("0.72") == "ERROR"
+    assert Solution().binaryRepresentation("0.125") == "0.001"
+    assert Solution().binaryRepresentation("0.6418459415435791") == "ERROR"

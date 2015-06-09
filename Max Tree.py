@@ -22,10 +22,13 @@ Challenge
 O(n) time complexity
 """
 __author__ = 'Danyang'
+
+
 class TreeNode:
     def __init__(self, val):
         self.val = val
         self.left, self.right = None, None
+
 
 class Solution:
     def maxTree(self, A):
@@ -45,7 +48,7 @@ class Solution:
         stk = []
         for num in A:
             cur = TreeNode(num)
-            while stk and stk[-1].val<=cur.val:
+            while stk and stk[-1].val <= cur.val:
                 left_neighbor = stk.pop()
                 left_neighbor.right = cur.left
                 cur.left = left_neighbor
@@ -59,4 +62,4 @@ class Solution:
 
         return pre
 
-    # TODO, alternative methods
+        # TODO, alternative methods

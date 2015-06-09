@@ -21,6 +21,8 @@ For 5 and 6, the LCA is 7.
 For 6 and 7, the LCA is 7.
 """
 __author__ = 'Danyang'
+
+
 class TreeNode:
     def __init__(self, val):
         self.val = val
@@ -28,6 +30,7 @@ class TreeNode:
 
     def __repr__(self):
         return repr(self.val)
+
 
 class Solution:
     def lowestCommonAncestor(self, root, A, B):
@@ -56,7 +59,7 @@ class Solution:
         p1.append(TreeNode(0))  # dummy
         p2.append(TreeNode(0))  # dummy
         for ind, val in enumerate(p1):
-            if val!=p2[ind]:
+            if val != p2[ind]:
                 return p1[ind-1]
 
     def path(self, root, target):
@@ -84,7 +87,7 @@ class Solution:
 
         path.append(cur)
 
-        if cur==target:  # compare by reference
+        if cur == target:  # compare by reference
             # ans = path
             ans.extend(path)  # otherwise lose reference
             return True
@@ -98,7 +101,8 @@ class Solution:
         path.pop()
         return False
 
-if __name__=="__main__":
+
+if __name__ == "__main__":
     node = TreeNode(1)
     print Solution().lowestCommonAncestor(node, node, node)
 

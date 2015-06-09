@@ -27,23 +27,23 @@ class Solution:
         """
         lst = map(int, list(str(A)))
         i = 0
-        while i+1<len(lst) and k>0:
-            if lst[i]>lst[i+1]:
+        while i+1 < len(lst) and k > 0:
+            if lst[i] > lst[i+1]:
                 del lst[i]
                 i -= 1
-                if i<0:
+                if i < 0:
                     i = 0
                 k -= 1
             else:
                 i += 1
-        if k>0:
+        if k > 0:
             lst = lst[:len(lst)-k]
 
         return "".join(map(str, lst)).lstrip("0")
 
     def DeleteDigits_error(self, A, k):
         """
-        remove keep the n-k largest numbers
+        Remove and keep the n-k largest numbers
         heap: O(n lg (n-k))
 
         error in case: 254193, 1
@@ -58,7 +58,7 @@ class Solution:
         tuples = [(-lst[i], i) for i in xrange(m)]  # negative sign for max heap
         heapq.heapify(tuples)
         for i in xrange(m, len(lst)):
-            if -tuples[0][0]>lst[i]:
+            if -tuples[0][0] > lst[i]:
                 heapq.heappop(tuples)
                 heapq.heappush(tuples, (-lst[i], i))
 
@@ -68,7 +68,7 @@ class Solution:
         return "".join(rets)
 
 
-if __name__=="__main__":
-    assert Solution().DeleteDigits(10009876091, 4)=="6091"
+if __name__ == "__main__":
+    assert Solution().DeleteDigits(10009876091, 4) == "6091"
 
 

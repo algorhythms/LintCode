@@ -22,6 +22,7 @@ class Solution:
         """
         Starting from the easiest cases.
         Enumerate the cases and find the pattern
+
         :param n: an integer
         :return: a boolean which equals to True if the first player will win
         """

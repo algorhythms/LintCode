@@ -12,23 +12,30 @@ Challenge
 implement it by two stacks, do not use any other data structure and push, pop and top should be O(1) by AVERAGE.
 """
 __author__ = 'Danyang'
+
+
 class Queue:
     def __init__(self):
-        self.stack1 = []  # for in
-        self.stack2 = []  # for out
+        """
+        Dual stack
+        """
+        self.in_stk = []
+        self.out_stk = []
 
     def push(self, element):
-        self.stack1.append(element)
+        self.in_stk.append(element)
 
     def top(self):
-        if not self.stack2:
-            while self.stack1:
-                self.stack2.append(self.stack1.pop())
-        return self.stack2[-1]
+        if not self.out_stk:
+            while self.in_stk:
+                self.out_stk.append(self.in_stk.pop())
+
+        return self.out_stk[-1]
 
     def pop(self):
-        if not self.stack2:
-            while self.stack1:
-                self.stack2.append(self.stack1.pop())
-        return self.stack2.pop()
+        if not self.out_stk:
+            while self.in_stk:
+                self.out_stk.append(self.in_stk.pop())
+
+        return self.out_stk.pop()
 

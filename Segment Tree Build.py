@@ -27,11 +27,11 @@ class Solution:
         :param start, end: denote an segment / interval
         :return: The root of Segment Tree
         """
-        if start>end:
+        if start > end:
             return None
 
         root = SegmentTreeNode(start, end)
-        if start==end:
+        if start == end:
             return root
 
         root.left = self.build(start, (start+end)/2)

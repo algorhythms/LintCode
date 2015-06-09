@@ -42,4 +42,5 @@ class Solution:
             with cls.__lock:
                 if not cls.__obj:
                     cls.__obj = cls()
+
         return cls.__obj

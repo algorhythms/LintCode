@@ -22,10 +22,13 @@ Extra memory usage O(h), h is the height of the tree.
 Super Star: Extra memory usage O(1)
 """
 __author__ = 'Danyang'
+
+
 class TreeNode:
     def __init__(self, val):
         self.val = val
         self.left, self.right = None, None
+
 
 class Solution:
     def __init__(self, root):
@@ -49,7 +52,9 @@ class Solution:
 
     def next(self):
         """
-        reference: https://github.com/zhangdanyangg/LeetCode/blob/master/095%20Binary%20Tree%20Inorder%20Traversal.py
+        In-order traversal: 1 stack
+        reference:
+        https://github.com/zhangdanyangg/LeetCode/blob/master/095%20Binary%20Tree%20Inorder%20Traversal.py
 
         :return: next node
         """

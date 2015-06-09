@@ -7,15 +7,18 @@ Example
 For A=[1, 2, 3], B is [6, 3, 2]
 """
 __author__ = 'Danyang'
+
+
 class Solution:
     def productExcludeItself(self, A):
         """
+        dp array to store the cumulative products
 
         :param A: Given an integers array A
         :return: An integer array B and B[i]= A[0] * ... * A[i-1] * A[i+1] * ... * A[n-1]
         """
         n = len(A)
-        if n==1:
+        if n == 1:
             return []
 
         dp = [[1, 1] for _ in xrange(n)]
@@ -27,4 +30,4 @@ class Solution:
         return B
 
 if __name__=="__main__":
-    print Solution().productExcludeItself([1, 2, 3])
+    assert Solution().productExcludeItself([1, 2, 3]) == [6, 3, 2]

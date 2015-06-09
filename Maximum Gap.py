@@ -38,7 +38,7 @@ class Solution:
 
         gmax = max(nums)
         gmin = min(nums)
-        bin_width = max(1, (gmax-gmin)/(n-1))  # lower bound of bin
+        bin_width = max(1, (gmax-gmin)/(n-1))  # lower bound of the max gap
 
         bins_max = {}  # use hash map instead of array since possible empty bin
         bins_min = {}
@@ -50,12 +50,10 @@ class Solution:
 
         max_gap = -1
         pre_bin_max = gmin
-        for i in xrange((gmax-gmin)/bin_width):
+        for i in xrange((gmax-gmin)/bin_width+1):
             if i in bins_min:
                 max_gap = max(max_gap, bins_min[i]-pre_bin_max)
                 pre_bin_max = bins_max[i]
-
-        max_gap = max(max_gap, gmax - pre_bin_max)  # edge case
 
         return max_gap
 

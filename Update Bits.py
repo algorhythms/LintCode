@@ -29,14 +29,15 @@ class Solution:
         """
         compute the 2's compliment of positive int value val
         """
-        if val>0 and val&(1<<(bits-1))!=0:  # not ==1
+        if val > 0 and val&(1<<(bits-1)) != 0:  # not ==1
             val -= 1<<bits
         return val
 
-if __name__=="__main__":
-    assert Solution().updateBits(-2147483648, 2147483647, 0, 30)==-1
-    assert Solution().updateBits(1, -1, 0, 31)==-1
+
+if __name__ == "__main__":
+    assert Solution().updateBits(-2147483648, 2147483647, 0, 30) == -1
+    assert Solution().updateBits(1, -1, 0, 31) == -1
     n = int("10000000000", 2)
     m = int("10101", 2)
-    assert bin(Solution().updateBits(n, m, 2, 6))=="0b10001010100"
+    assert bin(Solution().updateBits(n, m, 2, 6)) == "0b10001010100"
 
