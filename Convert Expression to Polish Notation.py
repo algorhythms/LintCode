@@ -20,6 +20,9 @@ class Solution:
         return self.infix2prefix(expression)
 
     def infix2prefix(self, lst):
+        """
+        starting from right the left
+        """
         stk = []
         pre = []
         for elt in reversed(lst):
@@ -32,7 +35,7 @@ class Solution:
                     pre.append(stk.pop())
                 stk.pop()
             else:
-                while stk and self.precedence(elt)<self.precedence(stk[-1]):  # < rather than <=
+                while stk and self.precedence(elt) < self.precedence(stk[-1]):  # < rather than <=
                     pre.append(stk.pop())
                 stk.append(elt)
 
@@ -53,4 +56,4 @@ class Solution:
 
 
 if __name__ == "__main__":
-    assert Solution().infix2prefix(["(", "5", "-", "6", ")", "*", "7"])==['*', '-', '5', '6', '7']
+    assert Solution().infix2prefix(["(", "5", "-", "6", ")", "*", "7"]) == ['*', '-', '5', '6', '7']

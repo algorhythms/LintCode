@@ -19,30 +19,31 @@ class Solution:
 
     def infix2postfix(self, lst):
         """
-        postfix is of increasing precedence order
+        The stack temporarily stores the operators of strictly increasing precedence order.
+
         :param lst:
         :return:
         """
         stk = []
-        post = []
+        ret = []  # post fix
         for elt in lst:
             if elt.isdigit():
-                post.append(elt)
+                ret.append(elt)
             elif elt == "(":
                 stk.append(elt)
             elif elt == ")":
                 while stk and stk[-1] != "(":
-                    post.append(stk.pop())
+                    ret.append(stk.pop())
                 stk.pop()
             else:
                 while stk and self.precedence(elt) <= self.precedence(stk[-1]):
-                    post.append(stk.pop())
+                    ret.append(stk.pop())
                 stk.append(elt)
 
         while stk:
-            post.append(stk.pop())
+            ret.append(stk.pop())
 
-        return post
+        return ret
 
     def precedence(self, x):
         if x in ("(", ")"):

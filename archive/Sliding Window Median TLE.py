@@ -164,6 +164,26 @@ class DualHeap(object):
 
 
 class Solution:
+    def medianSlidingWindow(self, nums, k):
+        """
+        Use heap
+        """
+        if len(nums) < 1:
+            return []
+
+        ret = []
+        dh = DualHeap()
+        for i in xrange(k):
+            dh.add(nums[i])
+        ret.append(dh.median())
+
+        for i in xrange(k, len(nums)):
+            dh.remove(nums[i-k])
+            dh.add(nums[i])
+            ret.append(dh.median())
+
+        return ret
+
     def medianSlidingWindow_TLE(self, nums, k):
         """
         Use priority queue
@@ -189,28 +209,6 @@ class Solution:
             pq.remove(nums[i-k])
             pq.insert(nums[i])
             ret.append(pq[mid])
-
-        return ret
-
-    def medianSlidingWindow(self, nums, k):
-        """
-        Use heap
-
-        TLE
-        """
-        if len(nums) < 1:
-            return []
-
-        ret = []
-        dh = DualHeap()
-        for i in xrange(k):
-            dh.add(nums[i])
-        ret.append(dh.median())
-
-        for i in xrange(k, len(nums)):
-            dh.remove(nums[i-k])
-            dh.add(nums[i])
-            ret.append(dh.median())
 
         return ret
 
