@@ -22,7 +22,7 @@ class Solution:
         Bottom up construction
         * Every leaf in heap is already a heap
 
-        Strictly O(n) rather than O(nlg n) CLRS 6.3 HeightLine a heap
+        Strictly O(n) rather than O(nlg n) CLRS 6.3 building a heap
         for understanding: http://www.zhihu.com/question/20729324
 
         :param A: Given an integer array

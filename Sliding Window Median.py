@@ -63,9 +63,7 @@ class Heap(object):
 
         :return: the top item
         """
-        while self.h and self.h[0].deleted:
-            heapq.heappop(self.h)
-
+        self._clean_top()
         self.len -= 1
 
         return heapq.heappop(self.h)
@@ -82,10 +80,12 @@ class Heap(object):
     def __len__(self):
         return self.len
 
-    def peek(self):
+    def _clean_top(self):
         while self.h and self.h[0].deleted:
             heapq.heappop(self.h)
 
+    def peek(self):
+        self._clean_top()
         return self.h[0]
 
     def __repr__(self):
@@ -162,5 +162,5 @@ class Solution:
 
 
 if __name__ == "__main__":
-    print Solution().medianSlidingWindow([1, 2, 7, 7, 2], 3)
+    assert Solution().medianSlidingWindow([1, 2, 7, 7, 2], 3) == [2, 7, 7]
     assert Solution().medianSlidingWindow([1, 2, 7, 8, 5], 3) == [2, 7, 7]
