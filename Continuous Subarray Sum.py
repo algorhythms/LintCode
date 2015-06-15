@@ -6,6 +6,8 @@ Example
 Give [-3, 1, 3, -3, 4], return [1,4].
 """
 __author__ = 'Daniel'
+from collections import namedtuple
+Sum = namedtuple("Sum", "sum i j")  # data structure to store the sum and the starting and ending index.
 
 
 class Solution:
@@ -19,22 +21,19 @@ class Solution:
         if len(A) < 1:
             return [-1, -1]
 
-        m_s, m_e = 0, 0  # inclusive index
-        max_sum = A[0]
-
+        ret = Sum(A[0], 0, 0)
         cur = 0  # current sum
         s = 0
         for e, v in enumerate(A):
             cur += v
-            if max_sum < cur:
-                m_s, m_e = s, e
-                max_sum = cur
+            if ret.sum < cur:
+                ret = Sum(cur, s, e)
 
             if cur < 0:
                 s = e+1
                 cur = 0
 
-        return [m_s, m_e]
+        return [ret.i, ret.j]
 
 
 if __name__ == "__main__":
