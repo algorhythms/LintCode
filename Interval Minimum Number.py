@@ -1,10 +1,12 @@
 """
+Hard Interval Minimum Number
+
 Given an integer array (index from 0 to n-1, where n is the size of this array), and an query list. Each query has two
-integers [start, end]. For each query, calculate the sum number between index start and end in the given array, return
-the result list.
+integers [start, end]. For each query, calculate the minimum number between index start and end in the given array,
+return the result list.
 
 Example
-For array [1,2,7,8,5], and queries [(1,2),(0,4),(2,4)], return [9,23,20]
+For array [1,2,7,8,5], and queries [(1,2),(0,4),(2,4)], return [2,1,5]
 
 Note
 We suggest you finish problem Segment Tree Build, Segment Tree Query and Segment Tree Modify first.
@@ -12,8 +14,11 @@ We suggest you finish problem Segment Tree Build, Segment Tree Query and Segment
 Challenge
 O(logN) time for each query
 """
-DEFAULT = 0
-f = lambda x, y: x+y
+__author__ = 'Daniel'
+import sys
+
+DEFAULT = sys.maxint
+f = lambda x, y: min(x, y)
 
 
 class Node(object):
@@ -67,11 +72,10 @@ class SegmentTree(object):
 
 
 class Solution:
-    def intervalSum(self, A, queries):
+    def intervalMinNumber(self, A, queries):
         """
         Interval Tree
 
-        Alternative method: dp
         :param A: integer array
         :param queries: The ith query is [queries[i-1].start, queries[i-1].end]
         :return: The result list
@@ -82,5 +86,3 @@ class Solution:
             ret.append(tree.query(tree.root, q.start, q.end+1))
 
         return ret
-
-
