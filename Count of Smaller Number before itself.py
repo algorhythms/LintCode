@@ -61,7 +61,7 @@ class BST(object):
 class Solution:
     def countOfSmallerNumberII(self, A):
         """
-        TLE
+        TLE in python but the same algorithm in java passed the test cases. 
 
         :param A: A list of integer
         :return: Count the number of element before this element 'ai' is smaller than it and return count number list
