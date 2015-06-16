@@ -6,6 +6,7 @@ Design a query method with three parameters root, start and end, find the maximu
 the given root of segment tree.
 """
 __author__ = 'Danyang'
+import sys
 
 
 class SegmentTreeNode:
@@ -21,10 +22,10 @@ class Solution:
         :param root, start, end: The root of segment tree and an segment / interval
         :return: The maximum number in the interval [start, end]
         """
-        import sys
-        if start<=root.start and end>=root.end:
+
+        if start <= root.start and end >= root.end:  # the start and end remain unchanged during the query.
             return root.max
-        if start>end:
+        if start > end:
             return -sys.maxint-1
 
         maxa = -sys.maxint-1

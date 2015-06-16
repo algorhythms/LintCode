@@ -26,9 +26,9 @@ class Solution:
         """
         if root is None:
             return
-        if index<root.start or index>root.end:
+        if index < root.start or index > root.end:
             return
-        if root.start==index and root.end==index:
+        if root.start == index and root.end == index:
             root.max = value
             return
 
