@@ -18,13 +18,12 @@ For the expression (2*6-(23+7)/(1+2)) (which can be represented by ["2" "*" "6" 
 After building the tree, you just need to return root node [-].
 """
 __author__ = 'Daniel'
-try:
-    ExpressionTreeNode("0")
-except NameError:
-    class ExpressionTreeNode:
-        def __init__(self, symbol):
-            self.symbol = symbol
-            self.left, self.right = None, None
+
+
+class ExpressionTreeNode:
+    def __init__(self, symbol):
+        self.symbol = symbol
+        self.left, self.right = None, None
 
 
 class Solution:
