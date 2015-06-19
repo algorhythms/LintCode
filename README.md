@@ -3,7 +3,12 @@ Python in Action.
 
 ## Contents
 Only unique questions from [LintCode](https://github.com/algorhythms/LintCode) are included. Duplicated questions of [LeetCode](https://github.com/idf/LeetCode) are excluded, which can be found in [ https://github.com/idf/LeetCode](https://github.com/idf/LeetCode) instead.
-
+### Python
+This repo mainly uses Python. To run in Python:
+```bash
+python <QuestionName>.py
+```
+If you encountered `Class Already Defined` compilation problem in OJ, please remove `TreeNode`, `GraphNode` or etc. 
 ### Java
 Some algorithms in Python cannot pass the OJ due to OJ bugs; thus the alternative solutions in java in the exactly same algorithm are provided. To run in Java:
 ```bash
