@@ -77,7 +77,11 @@ public class Solution {
                 {2, 4, 4},
                 {5, 6, 1}
         };
-        System.out.println(new Solution().buildingOutline(buildings));
+        List<List<Integer>> expected = new ArrayList<>();
+        expected.add(Arrays.asList(1, 2, 3));
+        expected.add(Arrays.asList(2, 4, 4));
+        expected.add(Arrays.asList(5, 6, 1));
+        assert new Solution().buildingOutline(buildings).equals(expected);
     }
 }
 

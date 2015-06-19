@@ -1,6 +1,8 @@
 package CountofSmallerNumberbeforeitself;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * Created by Daniel on 16/06/15.
@@ -64,7 +66,8 @@ public class Solution {
     }
 
     public static void main(String[] args) {
-        System.out.println(new Solution().countOfSmallerNumberII(new int[] {1, 2, 7, 8, 5}));
+        List<Integer> expected = Arrays.asList(0, 1, 2, 3, 2);
+        assert new Solution().countOfSmallerNumberII(new int[] {1, 2, 7, 8, 5}).equals(expected);
     }
 }
 
