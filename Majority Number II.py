@@ -19,43 +19,32 @@ class Solution:
     def majorityNumber(self, nums):
         """
         Voting Algorithm
+        Since majority number must occur more than 1/3, there are at most 2 majority number
 
         reference: http://www.cnblogs.com/yuzhangcmu/p/4175779.html
 
         :param nums:
         :return:
         """
-        n1 = None
-        n2 = None
-        cnt1 = 0
-        cnt2 = 0
+        n1, n2 = None, None
+        cnt1, cnt2 = 0, 0
 
         for num in nums:
-            if cnt1 == 0:
-                n1 = num
-                cnt1 += 1
-            elif num != n1 and cnt2 == 0:
-                n2 = num
-                cnt2 += 1
-
-            elif num == n1:
-                cnt1 += 1
-            elif num == n2:
-                cnt2 += 1
+            if num in (n1, n2):
+                if num == n1:
+                    cnt1 += 1
+                else:
+                    cnt2 += 1
             else:  # every time --, discard 3 different numbers
-                assert cnt1 > 0
-                assert cnt2 > 0
-                cnt1 -= 1
-                cnt2 -= 1
-
-            # again
-            if cnt1 == 0:
-                n1 = num
-                cnt1 += 1
-            elif num != n1 and cnt2 == 0:
-                n2 = num
-                cnt2 += 1
-
+                if cnt1 == 0:
+                    n1 = num
+                    cnt1 += 1
+                elif cnt2 == 0:
+                    n2 = num
+                    cnt2 += 1
+                else:
+                    cnt1 -= 1
+                    cnt2 -= 1
 
         # double check
         if len(filter(lambda x: x == n1, nums)) > len(nums)/3:

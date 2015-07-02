@@ -12,50 +12,31 @@ Challenge
 O(n) time and O(k) extra space
 """
 __author__ = 'Danyang'
+from collections import defaultdict
 
 
 class Solution:
-    def majorityNumber_error(self, nums, k):
-        """
-        O(n) time and O(k) extra space
-
-        :param nums:
-        :param k:
-        :return:
-        """
-        n = [None for _ in xrange(k)]
-        cnt = [0 for _ in xrange(k)]
-
+    def majorityNumber(self, nums, k):
+        cnt = defaultdict(int)
         for num in nums:
-            if num not in n:
-                for i in xrange(k):
-                    if cnt[i] == 0:
-                        n[i] = num
-                        cnt[i] += 1
-                        break  # should have gone to next iteration, but go to the following else
-
-            if num not in n:  # every time --, discard k different numbers
-                for i in xrange(k):
-                    assert cnt[i] > 0
-                    cnt[i] -= 1
-
-                for i in xrange(k):
-                    if cnt[i] == 0:
-                        n[i] = num
-                        cnt[i] += 1
-                        break
+            if num in cnt:
+                cnt[num] += 1
             else:
-                i = n.index(num)
-                cnt[i] += 1
+                if len(cnt) < k:
+                    cnt[num] += 1
+                else:
+                    for key in cnt.keys():
+                        cnt[key] -= 1
+                        if cnt[key] == 0:
+                            del cnt[key]
 
-        for i in xrange(k):
-            if len(filter(lambda x: x == n[i], nums)) > len(nums)/k:
-                return n[i]
+        for key in cnt.keys():
+            if len(filter(lambda x: x == key, nums)) > len(nums)/k:
+                return key
 
         raise Exception
 
-
-    def majorityNumber(self, nums, k):
+    def majorityNumber_array(self, nums, k):
         """
         O(n) time and O(k) extra space
 
@@ -79,6 +60,45 @@ class Solution:
                     continue
 
             if num not in n:
+                for i in xrange(k):
+                    assert cnt[i] > 0
+                    cnt[i] -= 1
+
+                for i in xrange(k):
+                    if cnt[i] == 0:
+                        n[i] = num
+                        cnt[i] += 1
+                        break
+            else:
+                i = n.index(num)
+                cnt[i] += 1
+
+        for i in xrange(k):
+            if len(filter(lambda x: x == n[i], nums)) > len(nums)/k:
+                return n[i]
+
+        raise Exception
+
+    def majorityNumber_error(self, nums, k):
+        """
+        O(n) time and O(k) extra space
+
+        :param nums:
+        :param k:
+        :return:
+        """
+        n = [None for _ in xrange(k)]
+        cnt = [0 for _ in xrange(k)]
+
+        for num in nums:
+            if num not in n:
+                for i in xrange(k):
+                    if cnt[i] == 0:
+                        n[i] = num
+                        cnt[i] += 1
+                        break  # should have gone to next iteration, but go to the following else
+
+            if num not in n:  # every time --, discard k different numbers
                 for i in xrange(k):
                     assert cnt[i] > 0
                     cnt[i] -= 1
