@@ -17,12 +17,15 @@ from collections import defaultdict
 
 class Solution:
     def majorityNumber(self, nums, k):
+        """
+        Since majority elements appears more than ceil(n/k) times, there are at most 2 majority number
+        """
         cnt = defaultdict(int)
         for num in nums:
             if num in cnt:
                 cnt[num] += 1
             else:
-                if len(cnt) < k:
+                if len(cnt) < k-1:
                     cnt[num] += 1
                 else:
                     for key in cnt.keys():
