@@ -26,7 +26,7 @@ class Solution:
         return self.find_kth(A, 0, len(A), k)
 
     def find_kth(self, A, i, j, k):
-        p = self.pivot(A, i, j)
+        p = self.pivot_optimized(A, i, j)
         if k == p:
             return A[p]
         elif k < p:
@@ -44,6 +44,33 @@ class Solution:
 
         A[closed], A[p] = A[p], A[closed]
         return closed
+
+    def pivot_optimized(self, A, lo, hi):
+        """
+        Fix the pivot as the 1st element
+        Scan from left to right and right to left simultaneously
+        Avoid the case that the algo goes O(N^2) with duplicate keys
+        """
+        p = lo
+        i = lo
+        j = hi
+        while True:
+            while True:
+                i += 1
+                if i >= hi or A[i] >= A[lo]:
+                    break
+            while True:
+                j -= 1
+                if j < lo or A[j] <= A[lo]:
+                    break
+
+            if i >= j:
+                break
+
+            A[i], A[j] = A[j], A[i]
+
+        A[lo], A[j] = A[j], A[lo]
+        return j
 
 if __name__ == "__main__":
     assert Solution().kthLargestElement(10, range(1, 11)) == 1
