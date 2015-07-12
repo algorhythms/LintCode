@@ -51,7 +51,6 @@ class Solution:
         Scan from left to right and right to left simultaneously
         Avoid the case that the algo goes O(N^2) with duplicate keys
         """
-        p = lo
         i = lo
         j = hi
         while True:
@@ -71,6 +70,26 @@ class Solution:
 
         A[lo], A[j] = A[j], A[lo]
         return j
+
+    def pivot_3way(self, A, lo, hi):
+        lt = lo-1  # pointing to end of array LT
+        gt = hi  # pointing to the end of array GT (reversed)
+
+        v = A[lo]
+        i = lo  # scanning pointer
+        while i < gt:
+            if A[i] < v:
+                lt += 1
+                A[lt], A[i] = A[i], A[lt]
+                i += 1
+            elif A[i] > v:
+                gt -= 1
+                A[gt], A[i] = A[i], A[gt]
+            else:
+                i += 1
+
+        return lt+1, gt
+
 
 if __name__ == "__main__":
     assert Solution().kthLargestElement(10, range(1, 11)) == 1
