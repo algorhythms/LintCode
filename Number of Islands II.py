@@ -27,14 +27,18 @@ class UnionFind(object):
     """
     Weighted Union Find with path compression
     """
-    def __init__(self):
-        self.pi = {}  # item -> pi
-        self.sz = {}  # root -> size
+
+    def __init__(self, rows, cols):
+        # hashing will cause TLE; use direct array access instead
+        self.pi = [-1 for _ in xrange(rows*cols)]  # item -> pi
+        self.sz = [-1 for _ in xrange(rows*cols)]  # root -> size
+        self.count = 0
 
     def add(self, item):
-        if item not in self.pi:
+        if self.pi[item] == -1:
             self.pi[item] = item
             self.sz[item] = 1
+            self.count += 1
 
     def union(self, a, b):
         pi1 = self._pi(a)
@@ -46,7 +50,7 @@ class UnionFind(object):
 
             self.pi[pi1] = pi2
             self.sz[pi2] += self.sz[pi1]
-            del self.sz[pi1]
+            self.count -= 1
 
     def _pi(self, item):
         pi = self.pi[item]
@@ -54,13 +58,6 @@ class UnionFind(object):
             self.pi[item] = self._pi(pi)
 
         return self.pi[item]
-
-    def compress(self):
-        for item in self.pi.keys():
-            self.pi[item] = self._pi(item)
-
-    def count(self):
-        return len(self.sz)  # only root nodes have size
 
 
 class Solution:
@@ -79,22 +76,22 @@ class Solution:
         cols = m
         id = lambda x, y: x*cols+y  # hash will be slower
         mat = [[0 for _ in xrange(cols)] for _ in xrange(rows)]
-        uf = UnionFind()
+        uf = UnionFind(rows, cols)
         ret = []
         for op in operators:
             uf.add(id(op.x, op.y))
             mat[op.x][op.y] = 1
             for dir in self.dirs:
-                x1 = op.x + dir[0]
-                y1 = op.y + dir[1]
+                x1 = op.x+dir[0]
+                y1 = op.y+dir[1]
                 if 0 <= x1 < rows and 0 <= y1 < cols and mat[x1][y1] == 1:
                     uf.union(id(op.x, op.y), id(x1, y1))
 
-            uf.compress()
-            ret.append(uf.count())
+            ret.append(uf.count)
 
         return ret
 
 
 if __name__ == "__main__":
-    print Solution().numIslands2(3, 3, map(lambda x: Point(x[0], x[1]), [(0,0),(0,1),(2,2),(2,1)]))
+    assert Solution().numIslands2(3, 3, map(lambda x: Point(x[0], x[1]), [(0, 0), (0, 1), (2, 2), (2, 1)])) == [1, 1, 2,
+                                                                                                                2]
