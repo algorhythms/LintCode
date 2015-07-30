@@ -37,8 +37,8 @@ class UnionFind(object):
     Weighted Union Find with path compression
     """
     def __init__(self):
-        self.pi = {}  # item -> Node
-        self.sz = {}
+        self.pi = {}  # item -> pi
+        self.sz = {}  # root -> size
 
     def add(self, item):
         if item not in self.pi:
@@ -46,17 +46,16 @@ class UnionFind(object):
             self.sz[item] = 1
 
     def union(self, a, b):
-        self.add(a)
-        self.add(b)
-
         pi1 = self._pi(a)
         pi2 = self._pi(b)
 
-        if self.sz[pi1] > self.sz[pi2]:
-            pi1, pi2 = pi2, pi1
+        if pi1 != pi2:
+            if self.sz[pi1] > self.sz[pi2]:
+                pi1, pi2 = pi2, pi1
 
-        self.pi[pi1] = pi2
-        self.sz[pi2] += self.sz[pi1]
+            self.pi[pi1] = pi2
+            self.sz[pi2] += self.sz[pi1]
+            del self.sz[pi1]
 
     def _pi(self, item):
         pi = self.pi[item]
@@ -68,6 +67,9 @@ class UnionFind(object):
     def compress(self):
         for item in self.pi.keys():
             self.pi[item] = self._pi(item)
+
+    def count(self):
+        return len(self.sz)  # only root nodes have size
 
 
 class Solution:
@@ -82,6 +84,7 @@ class Solution:
         for node in nodes:
             uf.add(node.label)
             for nei in node.neighbors:
+                uf.add(nei.label)
                 uf.union(node.label, nei.label)
 
         uf.compress()
