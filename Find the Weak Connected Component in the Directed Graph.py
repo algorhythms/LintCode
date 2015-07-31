@@ -3,7 +3,6 @@ Find the number Weak Connected Component in the directed graph. Each node in the
 its neighbors. (a connected set of a directed graph is a subgraph in which any two vertices are connected by direct edge
 path.)
 
-Have you met this question in a real interview? Yes
 Example
 Given graph:
 
