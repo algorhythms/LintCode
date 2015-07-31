@@ -13,7 +13,7 @@ __author__ = 'Daniel'
 
 
 class Solution:
-    def postOffice(self, A, K):
+    def postOffice_TLE(self, A, K):
         """
         dp
         O(n^3), TLE
@@ -27,7 +27,7 @@ class Solution:
         c = [[0 for _ in xrange(N+1)] for _ in xrange(N+1)]  # [i, j)
 
         for i in xrange(N):
-            for j in xrange(1, N+1):
+            for j in xrange(i+1, N+1):
                 m = (i+j)/2
                 for l in xrange(i, j):
                     c[i][j] += abs(A[m]-A[l])
@@ -38,10 +38,20 @@ class Solution:
         for n in xrange(1, N+1):
             for k in xrange(2, K+1):
                 F[n][k] = min(
-                    [F[l][k-1]+c[l][n] for l in xrange(n)]
+                    F[l][k-1]+c[l][n] for l in xrange(n)
                 )
 
         return F[N][K]
+
+    def postOffice_TLE(self, A, K):
+        """
+        dp
+        O(n^2) using quadratic inequality
+        :type A: list[int]
+        :type K: int
+        :rtype: int
+        """
+        # TODO
 
 
 if __name__ == "__main__":
