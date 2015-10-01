@@ -82,20 +82,17 @@ class Solution_TLE:
         :rtype: int
         """
         n = len(pages)
-        F = [[0 for _ in xrange(n+1)] for _ in xrange(k+1)]
         s = [0 for _ in xrange(n+1)]
-
         for i in xrange(1, n+1):
             s[i] = s[i-1] + pages[i-1]
 
-        for i in xrange(1, k+1):
+        F = [[s[j] for j in xrange(n+1)] for _ in xrange(k+1)]  # initialize to upper limit
+
+        for i in xrange(2, k+1):
             for j in xrange(1, n+1):
-                if i-1 > 0:
-                    F[i][j] = min(
-                        max(F[i-1][t], s[j]-s[t]) for t in xrange(j)
-                    )
-                else:
-                    F[i][j] = s[j]  # edge case
+                F[i][j] = min(
+                    max(F[i-1][t], s[j]-s[t]) for t in xrange(j)
+                )
 
         return F[-1][-1]
 
@@ -139,4 +136,4 @@ class Solution_search:
 
 
 if __name__ == "__main__":
-    print Solution().copyBooks([3, 2], 5)
+    assert Solution().copyBooks([3, 2], 5) == 3
