@@ -7,16 +7,18 @@ Example
 For array [1,2,7,8,5], return [0,1,2,3,2]
 
 Note
-We suggest you finish problem Segment Tree Build, Segment Tree Query II and Count of Smaller Number before itself I first.
+We suggest you finish problem Segment Tree Build, Segment Tree Query II and Count of Smaller Number before itself I
+first.
 """
 __author__ = 'Daniel'
 
 
 class Node(object):
     def __init__(self, val):
+        """Records the left subtree size"""
         self.val = val
-        self.count_left = 0
-        self.count = 0
+        self.cnt_left = 0
+        self.cnt_this = 0
         self.left, self.right = None, None
 
     def __repr__(self):
@@ -28,37 +30,38 @@ class BST(object):
         self.root = None
 
     def insert(self, root, val):
-        if not self.root:
-            self.root = Node(val)
-            root = self.root
-
-        assert root is not None
+        """
+        :return: subtree's root after insertion
+        """
+        if not root:
+            root = Node(val)
 
         if root.val == val:
-            root.count += 1
+            root.cnt_this += 1
         elif val < root.val:
-            root.count_left += 1
-            if not root.left: root.left = Node(val)
-            self.insert(root.left, val)
+            root.cnt_left += 1
+            root.left = self.insert(root.left, val)
         else:
-            if not root.right: root.right = Node(val)
-            self.insert(root.right, val)
+            root.right = self.insert(root.right, val)
 
-    def query(self, root, val):
+        return root
+
+    def rank(self, root, val):
         """
-        query number of items smaller than val
+        Rank in the root's subtree
+        :return: number of items smaller than val
         """
         if not root:
             return 0
         if root.val < val:
-            return root.count+root.count_left+self.query(root.right, val)
+            return root.cnt_this+root.cnt_left+self.rank(root.right, val)
         elif root.val == val:
-            return root.count_left
+            return root.cnt_left
         else:
-            return self.query(root.left, val)
+            return self.rank(root.left, val)
 
 
-class Solution:
+class Solution(object):
     def countOfSmallerNumberII(self, A):
         """
         TLE in python but the same algorithm in java passed the test cases. 
@@ -69,8 +72,8 @@ class Solution:
         tree = BST()
         ret = []
         for a in A:
-            tree.insert(tree.root, a)
-            ret.append(tree.query(tree.root, a))
+            tree.root = tree.insert(tree.root, a)
+            ret.append(tree.rank(tree.root, a))
 
         return ret
 
