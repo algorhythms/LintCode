@@ -14,70 +14,71 @@ __author__ = 'Daniel'
 
 
 class Node(object):
-    def __init__(self, start, end):
+    def __init__(self, val):
         """Records the left subtree size"""
-        self.start = start
-        self.end = end
-        self.left = None
-        self.right = None
-        self.cnt_this = 0
+        self.val = val
         self.cnt_left = 0
+        self.cnt_this = 0
+        self.left, self.right = None, None
 
     def __repr__(self):
-        return repr("[%d, %d)" % (self.start, self.end))
+        return repr(self.val)
 
 
-class SegmentTree(object):
+class BST(object):
     def __init__(self):
         self.root = None
 
-    def build(self, root, start, end):
-        if start >= end: return
-        if not root: root = Node(start, end)
+    def insert(self, root, val):
+        """
+        :return: subtree's root after insertion
+        """
+        if not root:
+            root = Node(val)
 
-        root.left = self.build(root.left, start, (end+start)/2)  # not (end-start)/2
-        if root.left: root.right = self.build(root.right, (end+start)/2, end)
+        if root.val == val:
+            root.cnt_this += 1
+        elif val < root.val:
+            root.cnt_left += 1
+            root.left = self.insert(root.left, val)
+        else:
+            root.right = self.insert(root.right, val)
 
         return root
 
-    def set(self, root, i, val):
-        if root.start == i and root.end-1 == root.start:
-            root.cnt_this += val
-        elif i < (root.end+root.start)/2:
-            root.cnt_left += val
-            self.set(root.left, i, val)
-        else:
-            self.set(root.right, i, val)
-
-    def get(self, root, i):
-        if root.start == i and root.end-1 == root.start:
+    def rank(self, root, val):
+        """
+        Rank in the root's subtree
+        :return: number of items smaller than val
+        """
+        if not root:
+            return 0
+        if root.val < val:
+            return root.cnt_this+root.cnt_left+self.rank(root.right, val)
+        elif root.val == val:
             return root.cnt_left
-        elif i < (root.end+root.start)/2:
-            return self.get(root.left, i)
         else:
-            return root.cnt_left+root.cnt_this+self.get(root.right, i)
+            return self.rank(root.left, val)
 
 
 class Solution(object):
     def countOfSmallerNumberII(self, A):
         """
-        Segment Tree
+        TLE in python but the same algorithm in java passed the test cases. 
 
         :param A: A list of integer
         :return: Count the number of element before this element 'ai' is smaller than it and return count number list
         """
-        if not A: return []
-        st = SegmentTree()
-        st.root = st.build(st.root, min(A), max(A)+1)
+        tree = BST()
         ret = []
         for a in A:
-            ret.append(st.get(st.root, a))
-            st.set(st.root, a, 1)
+            tree.root = tree.insert(tree.root, a)
+            ret.append(tree.rank(tree.root, a))
 
         return ret
 
+
 if __name__ == "__main__":
-    print Solution().countOfSmallerNumberII([1, 2, 7, 8, 5])
     assert Solution().countOfSmallerNumberII(
         [26, 78, 27, 100, 33, 67, 90, 23, 66, 5, 38, 7, 35, 23, 52, 22, 83, 51, 98, 69, 81, 32, 78, 28, 94, 13, 2, 97,
          3, 76, 99, 51, 9, 21, 84, 66, 65, 36, 100, 41]) == [0, 1, 1, 3, 2, 3, 5, 0, 4, 0, 5, 1, 6, 2, 9, 2, 14, 10, 17,
