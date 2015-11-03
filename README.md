@@ -1,4 +1,4 @@
-# LintCode Python
+# LintCode ![Language](https://img.shields.io/badge/language-Python-blue.svg) ![License](https://img.shields.io/badge/license-Apache-red.svg)
 Python in Action.  
 
 ## Contents
