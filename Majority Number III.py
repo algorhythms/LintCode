@@ -11,11 +11,11 @@ For [3,1,2,3,2,3,3,4,4,4] and k = 3, return 3
 Challenge
 O(n) time and O(k) extra space
 """
-__author__ = 'Danyang'
 from collections import defaultdict
+__author__ = 'Danyang'
 
 
-class Solution:
+class Solution(object):
     def majorityNumber(self, nums, k):
         """
         Since majority elements appears more than ceil(n/k) times, there are at most 2 majority number

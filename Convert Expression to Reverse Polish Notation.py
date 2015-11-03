@@ -8,7 +8,7 @@ For the expression [3 - 4 + 5] (which denote by ["3", "-", "4", "+", "5"]), retu
 __author__ = 'Daniel'
 
 
-class Solution:
+class Solution(object):
     def convertToRPN(self, expression):
         """
 
@@ -34,13 +34,13 @@ class Solution:
             elif elt == ")":
                 while stk and stk[-1] != "(":
                     ret.append(stk.pop())
-                stk.pop()
+                stk.pop()  # pop "("
             else:
                 while stk and self.precedence(elt) <= self.precedence(stk[-1]):
                     ret.append(stk.pop())
                 stk.append(elt)
 
-        while stk:
+        while stk:  # clean up
             ret.append(stk.pop())
 
         return ret
