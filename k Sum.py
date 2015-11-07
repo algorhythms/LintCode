@@ -11,7 +11,7 @@ Given [1,2,3,4], k=2, target=5. There are 2 solutions:
 __author__ = 'Danyang'
 
 
-class Solution:
+class Solution(object):
     def kSum(self, A, k, target):
         """
         brute force O(n^k)
@@ -33,6 +33,8 @@ class Solution:
         f[i][j][v] means the way of selecting i elements from the first j elements so that their sum equals to v
         j is the scanning pointer
         you can either select A[j-1] or not select A[j-1]
+
+        O(n^2 k)
 
         :param A:
         :param K:
@@ -78,6 +80,7 @@ class Solution:
 
     def dfs_TLE_2(self, A, k, target, s, l, la, ret):
         """
+        Optimized version of dfs
         acceptable in k Sum II but TLE in k Sum
         """
         if l == k and s == target:
