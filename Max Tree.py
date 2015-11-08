@@ -24,13 +24,13 @@ O(n) time complexity
 __author__ = 'Danyang'
 
 
-class TreeNode:
+class TreeNode(object):
     def __init__(self, val):
         self.val = val
         self.left, self.right = None, None
 
 
-class Solution:
+class Solution(object):
     def maxTree(self, A):
         """
         Cartesian Tree, Heap-ordered, treap, stack O(n)
@@ -46,12 +46,13 @@ class Solution:
         :return: The root of max tree.
         """
         stk = []
-        for num in A:
-            cur = TreeNode(num)
+        for a in A:
+            cur = TreeNode(a)
             while stk and stk[-1].val <= cur.val:
-                left_neighbor = stk.pop()
-                left_neighbor.right = cur.left
-                cur.left = left_neighbor
+                pre = stk.pop()
+                pre.right = cur.left
+                cur.left = pre
+
             stk.append(cur)
 
         pre = None
@@ -61,5 +62,3 @@ class Solution:
             pre = cur
 
         return pre
-
-        # TODO, alternative methods
