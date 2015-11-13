@@ -12,7 +12,7 @@ __author__ = 'Daniel'
 class Solution:
     def permutationIndex(self, A):
         """
-        Contour expansion
+        Cantor expansion
 
         Inversions: O(n^2) or O(n lg n)
         O(n) count
