@@ -13,13 +13,18 @@ Note
 0 is represented as the sea, 1 is represented as the island. If two 1 is adjacent, we consider them in the same island.
 We only consider up/down/left/right adjacent.
 """
+import random
+
 __author__ = 'Daniel'
 
 
-class Point:
+class Point(object):
     def __init__(self, a=0, b=0):
         self.x = a
         self.y = b
+
+    def __repr__(self):
+        return "[%d, %d]" % (self.x, self.y)
 
 
 class UnionFind(object):
@@ -73,24 +78,50 @@ class Solution:
         """
         rows = n
         cols = m
-        id = lambda x, y: x*cols+y  # hash will be slower
+        unroll = lambda x, y: x*cols+y  # hash will be slower
         mat = [[0 for _ in xrange(cols)] for _ in xrange(rows)]
         uf = UnionFind(rows, cols)
         ret = []
         for op in operators:
-            uf.add(id(op.x, op.y))
+            uf.add(unroll(op.x, op.y))
             mat[op.x][op.y] = 1
             for dir in self.dirs:
                 x1 = op.x+dir[0]
                 y1 = op.y+dir[1]
                 if 0 <= x1 < rows and 0 <= y1 < cols and mat[x1][y1] == 1:
-                    uf.union(id(op.x, op.y), id(x1, y1))
+                    uf.union(unroll(op.x, op.y), unroll(x1, y1))
 
             ret.append(uf.count)
 
         return ret
 
 
+class TestCaseGenerator(object):
+    def _generate(self):
+        dim = 10
+        m = random.randrange(1, dim)
+        n = random.randrange(1, dim)
+        k = random.randrange(1, max(2, m*n/3))
+        operators = []
+        visited = set()
+        while len(operators) < k:
+            p = random.randrange(m*n)
+            if p not in visited:
+                x = p/n
+                y = p%n
+                operators.append(Point(x, y))
+                visited.add(p)
+
+        print m
+        print n
+        print operators
+
+    def generate(self, T=50):
+        for _ in xrange(T):
+            self._generate()
+
+
 if __name__ == "__main__":
-    assert Solution().numIslands2(3, 3, map(lambda x: Point(x[0], x[1]), [(0, 0), (0, 1), (2, 2), (2, 1)])) == [1, 1, 2,
-                                                                                                                2]
+    assert Solution().numIslands2(3, 3, map(lambda x: Point(x[0], x[1]), [(0, 0), (0, 1), (2, 2), (2, 1)])) == [1, 1, 2,                                                                           2]
+    testcase = TestCaseGenerator()
+    testcase.generate()
