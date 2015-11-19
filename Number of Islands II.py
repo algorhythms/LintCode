@@ -70,7 +70,6 @@ class Solution:
 
     def numIslands2(self, n, m, operators):
         """
-
         :type n: int
         :type m: int
         :type operators: list[Point]
@@ -112,9 +111,9 @@ class TestCaseGenerator(object):
                 operators.append(Point(x, y))
                 visited.add(p)
 
-        print m
-        print n
-        print operators
+        print(m)
+        print(n)
+        print(operators)
 
     def generate(self, T=50):
         for _ in xrange(T):
@@ -122,6 +121,7 @@ class TestCaseGenerator(object):
 
 
 if __name__ == "__main__":
-    assert Solution().numIslands2(3, 3, map(lambda x: Point(x[0], x[1]), [(0, 0), (0, 1), (2, 2), (2, 1)])) == [1, 1, 2,                                                                           2]
+    assert Solution().numIslands2(3, 3, map(lambda x: Point(x[0], x[1]), [(0, 0), (0, 1), (2, 2), (2, 1)])) == [1, 1, 2,
+                                                                                                                2]
     testcase = TestCaseGenerator()
     testcase.generate()
