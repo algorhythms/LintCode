@@ -15,6 +15,8 @@ return 14.
 __author__ = 'Daniel'
 import heapq
 
+__author__ = 'Daniel'
+
 
 class Cell:
     def __init__(self, i, j, h):
@@ -26,55 +28,53 @@ class Cell:
         return self.h - other.h
 
 
-class Solution:
+class Solution(object):
     def __init__(self):
         self.dirs = [(-1, 0), (1, 0), (0, -1), (0, 1)]
-        self.trapped = 0
-        self.h = []
 
-    def trapRainWater(self, heights):
+    def trapRainWater(self, mat):
         """
         Find the min height with no water that higher than the current height and keep it.
         Starting from the min height with no water
-
         Do BFS with heap (similar to Dijkstra's algorithm)
 
-        Python TLE
-
-        :param heights: a matrix of integers
+        :param mat: List[List[int]]
         :return: an integer
         """
-        m = len(heights)
-        n = len(heights[0])
+        if not mat: return 0
 
+        m, n = len(mat), len(mat[0])
         visited = [[False for _ in xrange(n)] for _ in xrange(m)]
-
+        h = []
         # add cells at the four edges
         for i in xrange(m):
-            heapq.heappush(self.h, Cell(i, 0, heights[i][0]))
-            heapq.heappush(self.h, Cell(i, n-1, heights[i][n-1]))
+            visited[i][0] = True
+            heapq.heappush(h, Cell(i, 0, mat[i][0]))
+            visited[i][n-1] = True
+            heapq.heappush(h, Cell(i, n-1, mat[i][n-1]))
 
         for j in xrange(1, n-1):
-            heapq.heappush(self.h, Cell(0, j, heights[0][j]))
-            heapq.heappush(self.h, Cell(m-1, j, heights[m-1][j]))
+            visited[0][j] = True
+            heapq.heappush(h, Cell(0, j, mat[0][j]))
+            visited[m-1][j] = True
+            heapq.heappush(h, Cell(m-1, j, mat[m-1][j]))
 
         # BFS with heap
-        while self.h:
-            cur = heapq.heappop(self.h)
-            visited[cur.i][cur.j] = True
+        trapped = 0
+        while h:
+            cur = heapq.heappop(h)
             for dir in self.dirs:
-                next_i = cur.i+dir[0]
-                next_j = cur.j+dir[1]
-                if 0 <= next_i < m and 0 <= next_j < n:
-                    nex = Cell(next_i, next_j, heights[next_i][next_j])
-                    if not visited[nex.i][nex.j]:
-                        visited[nex.i][nex.j] = True  # additional, to avoid TLE
-                        if nex.h < cur.h:  # fill
-                            self.trapped += cur.h-nex.h
-                            nex.h = cur.h
-                        heapq.heappush(self.h, nex)
+                I, J = cur.i+dir[0], cur.j+dir[1]
+                if 0 <= I < m and 0 <= J < n and not visited[I][J]:
+                    nxt = Cell(I, J, mat[I][J])
+                    if nxt.h < cur.h:  # fill
+                        trapped += cur.h - nxt.h
+                        nxt.h = cur.h
 
-        return self.trapped
+                    visited[I][J] = True
+                    heapq.heappush(h, nxt)
+
+        return trapped
 
 if __name__ == "__main__":
     assert Solution().trapRainWater([
